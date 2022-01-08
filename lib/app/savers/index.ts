@@ -3,7 +3,7 @@ import { SERVER_URI } from "../../config";
 
 export async function saveEnv(key: string, appName: string, env: string) {
   try {
-    await fetch(SERVER_URI + "/" + appName, {
+    await fetch(SERVER_URI + "/app/" + appName, {
       method: "POST",
       headers: {
         Authorization: "Bearer " + key,

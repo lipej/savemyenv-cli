@@ -3,7 +3,7 @@ import { SERVER_URI } from "../../config";
 
 export async function remove(key: string, appName: string) {
   try {
-    await fetch(SERVER_URI + "/" + appName, {
+    await fetch(SERVER_URI + "/app/" + appName, {
       method: "DELETE",
       headers: {
         Authorization: "Bearer " + key,

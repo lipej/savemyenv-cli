@@ -6,7 +6,7 @@ import { PartialDbData, PartialPackageJSON } from "../../types";
 
 export async function getEnv(key: string, appName: string) {
   try {
-    const response = await fetch(SERVER_URI + "/" + appName, {
+    const response = await fetch(SERVER_URI + "/app/" + appName, {
       method: "GET",
       headers: {
         Authorization: "Bearer " + key,
