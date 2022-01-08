@@ -7,7 +7,6 @@ const entryFile = "lib/index.ts";
 const shared = {
   entryPoints: [entryFile],
   bundle: true,
-  external: Object.keys(dependencies),
   platform: "node",
 };
 
