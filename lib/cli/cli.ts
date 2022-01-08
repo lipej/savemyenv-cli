@@ -52,7 +52,7 @@ program
     try {
       const configuration = await auth(token);
 
-      if (!fs.existsSync(path.join(USER_DIR))) {
+      if (!fs.existsSync(path.join(USER_DIR, APP_FOLDER))) {
         fs.mkdirSync(path.join(USER_DIR, APP_FOLDER));
       }
 
