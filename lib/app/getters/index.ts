@@ -1,22 +1,7 @@
 import fs from "fs";
 import path from "path";
-import fetch from "cross-fetch";
-import { SERVER_URI } from "../../config";
-import { PartialDbData, PartialPackageJSON } from "../../types";
-
-export async function getEnv(key: string, appName: string) {
-  try {
-    const response = await fetch(SERVER_URI + "/app/" + appName, {
-      method: "GET",
-      headers: {
-        Authorization: "Bearer " + key,
-      },
-    });
-    return JSON.stringify(response.body);
-  } catch (e) {
-    throw e;
-  }
-}
+import { APP_FOLDER, SECRET_FILE, USER_DIR } from "../../config/app";
+import { AuthResponse, PartialPackageJSON } from "../../types";
 
 export function getAppName(packageFile: string) {
   try {
@@ -32,11 +17,13 @@ export function getAppName(packageFile: string) {
 }
 
 export function getKey() {
-  return fs.readFileSync(path.join(__dirname, "config", ".secret")).toString();
+  return fs
+    .readFileSync(path.join(USER_DIR, APP_FOLDER, SECRET_FILE))
+    .toString();
 }
 
 export function getSecret(config: string) {
-  const data = <PartialDbData>JSON.parse(config);
+  const data = <AuthResponse>JSON.parse(config);
 
   return data.dbSecret;
 }

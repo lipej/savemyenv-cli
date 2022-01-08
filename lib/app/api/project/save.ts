@@ -1,5 +1,5 @@
 import fetch from "cross-fetch";
-import { SERVER_URI } from "../../config";
+import { SERVER_URI } from "../../../config";
 
 export async function saveEnv(key: string, appName: string, env: string) {
   try {
@@ -7,6 +7,7 @@ export async function saveEnv(key: string, appName: string, env: string) {
       method: "POST",
       headers: {
         Authorization: "Bearer " + key,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ envData: env }),
     });
