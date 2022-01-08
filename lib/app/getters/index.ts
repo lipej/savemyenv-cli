@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import fetch from "cross-fetch";
 import { SERVER_URI } from "../../config";
+import { PartialDbData, PartialPackageJSON } from "../../types";
 
 export async function getEnv(key: string, appName: string) {
   try {
@@ -19,7 +20,8 @@ export async function getEnv(key: string, appName: string) {
 
 export function getAppName(packageFile: string) {
   try {
-    const appName = JSON.parse(packageFile).name;
+    const packageParsed = <PartialPackageJSON>JSON.parse(packageFile);
+    const appName = packageParsed.name;
 
     if (!appName) throw new Error("Verify if package.json has key 'name'");
 
@@ -30,5 +32,11 @@ export function getAppName(packageFile: string) {
 }
 
 export function getKey() {
-  return fs.readFileSync(path.join(__dirname, ".secret")).toString();
+  return fs.readFileSync(path.join(__dirname, "config", ".secret")).toString();
+}
+
+export function getSecret(config: string) {
+  const data = <PartialDbData>JSON.parse(config);
+
+  return data.dbSecret;
 }

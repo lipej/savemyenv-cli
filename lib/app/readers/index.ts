@@ -18,3 +18,9 @@ export function readEnv() {
       throw new Error("Couldn't locate package.json");
   }
 }
+
+export function readConfig() {
+  return fs
+    .readFileSync(path.join(__dirname, "config", "config.json"))
+    .toString();
+}
