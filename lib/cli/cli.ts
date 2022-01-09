@@ -16,7 +16,8 @@ const program = new Command();
 program.version(APP_VERSION);
 
 program
-  .command("signup")
+  .command("register")
+  .description("register a new account")
   .argument("<usr>", "choose your username")
   .argument("<pass>", "choose your password")
   .argument("<mail>", "your email")
@@ -31,14 +32,13 @@ program
   });
 
 program
-  .command("get-token")
-  .description("sign in and get token")
+  .command("signin")
+  .description("sign-in and get app token")
   .argument("<usr>", "your username")
   .argument("<pass>", "your password")
   .action(async (usr, pass) => {
     try {
       const data = await login({ usr, pass });
-      console.log(data);
       console.info(`successfully login, your token => ${data.authToken}`);
     } catch (err) {
       console.error(err);
@@ -65,7 +65,7 @@ program
   });
 
 program
-  .command("getEnv")
+  .command("sync")
   .description("get your env from Save My ENV server")
   .argument("<localPass>", "local pass provided when env was uploaded")
   .action(async (localPass) => {
@@ -90,7 +90,7 @@ program
   });
 
 program
-  .command("saveEnv")
+  .command("backup")
   .description("save your env to Save My ENV server")
   .argument("<localPass>", "local pass provided when env was uploaded")
   .action(async (localPass) => {
@@ -138,6 +138,3 @@ program
 program.parse();
 
 export default program;
-function VERSION(VERSION: any) {
-  throw new Error("Function not implemented.");
-}
