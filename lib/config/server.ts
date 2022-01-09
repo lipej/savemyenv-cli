@@ -1,1 +1,1 @@
-export const SERVER_URI: string = "http://localhost:3333/api/v1";
+export const SERVER_URI: string = "https://savemyenv.lipejose.dev/api/v1";
