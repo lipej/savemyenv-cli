@@ -4,7 +4,7 @@ import { User } from "../../../types";
 
 export async function register({ usr, pass, mail }: User) {
   try {
-    await fetch(SERVER_URI + "/register", {
+    const response = await fetch(SERVER_URI + "/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -14,9 +14,13 @@ export async function register({ usr, pass, mail }: User) {
         pass,
         mail,
       }),
-    }).catch((err) => {
-      throw err;
-    });
+    }).then((response) => response.status);
+
+    if (response !== 201) {
+      throw new Error(
+        "Registration failed, maybe someone already has this username"
+      );
+    }
   } catch (e) {
     throw e;
   }

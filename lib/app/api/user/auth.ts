@@ -10,9 +10,16 @@ export async function auth(key: string) {
         Authorization: "Bearer " + key,
         "Content-Type": "application/json",
       },
-    }).then((response) => response.json());
+    }).then(async (response) => ({
+      body: await response.json(),
+      code: response.status,
+    }));
 
-    return response as AuthResponse;
+    if (response.code !== 200) {
+      throw new Error("Auth failed, maybe you entered wrong token");
+    }
+
+    return response.body as AuthResponse;
   } catch (e) {
     throw e;
   }

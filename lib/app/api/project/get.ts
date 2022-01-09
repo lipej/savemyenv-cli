@@ -9,9 +9,22 @@ export async function getEnv(key: string, appName: string) {
       headers: {
         Authorization: "Bearer " + key,
       },
-    }).then((response) => response.json());
+    }).then(async (response) => ({
+      body: await response.json(),
+      code: response.status,
+    }));
 
-    return response as EnvResponse;
+    if (response.code !== 200) {
+      if (response.code === 404) {
+        throw new Error("Env not found, for this app");
+      }
+      if (response.code === 401) {
+        throw new Error("Auth failed, maybe you entered wrong token");
+      }
+      throw new Error("BAD_REQUEST");
+    }
+
+    return response.body as EnvResponse;
   } catch (e) {
     throw e;
   }

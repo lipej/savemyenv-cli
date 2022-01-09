@@ -13,9 +13,16 @@ export async function login({ usr, pass }: UserLogin) {
         usr,
         pass,
       }),
-    }).then((response) => response.json());
+    }).then(async (response) => ({
+      body: await response.json(),
+      code: response.status,
+    }));
 
-    return response as TokenResponse;
+    if (response.code !== 200) {
+      throw new Error("Login failed, maybe you entered wrong credentials");
+    }
+
+    return response.body as TokenResponse;
   } catch (e) {
     throw e;
   }
