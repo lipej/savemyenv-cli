@@ -25,7 +25,7 @@ program
     try {
       await register({ usr, pass, mail });
 
-      console.log(`Registered successfully, your username is ${usr}`);
+      console.info(`Registered successfully, your username is ${usr}`);
     } catch (err) {
       console.error(err);
     }
@@ -77,7 +77,6 @@ program
       if (packageFile) {
         const appName = getAppName(packageFile);
         const data = await getEnv(key, appName);
-        console.log(data);
         const env = decryptEnv(data.envData, secret + localPass);
 
         writeEnv(env);
@@ -85,7 +84,7 @@ program
 
       console.info(".env successfully written");
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   });
 
@@ -111,7 +110,7 @@ program
 
       console.info(".env successfully send to the cloud");
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   });
 
@@ -131,7 +130,7 @@ program
 
       console.info(".env successfully deleted from cloud");
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   });
 
