@@ -1,6 +1,6 @@
 {
   "name": "savemyenv-cli",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "CLI to work with Save My ENV",
   "preferGlobal": true,
   "main": "./dist/index.js",
